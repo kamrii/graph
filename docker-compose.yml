@@ -14,6 +14,7 @@ services:
 
   php:
     image: yiisoftware/yii2-php:7.0-fpm
+    command: ./php_start.sh
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache
       - ./:/app
