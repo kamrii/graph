@@ -1,5 +1,5 @@
 #!/bin/bash
-sleep 2 &&
+sleep 5 &&
 php yii migrate --db=db --interactive=0 &&
 chmod 775 runtime/  &&
 chown www-data:www-data runtime/ &&
