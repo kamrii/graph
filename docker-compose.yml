@@ -1,0 +1,47 @@
+version: '2'
+services:
+  web:
+    image: nginx:1.12-alpine
+    ports:
+      - 80:80
+      - 9001:9001
+      - 443:443
+    volumes:
+      - ./docker/nginx/:/etc/nginx/:ro
+      - ./web:/app/web
+    depends_on:
+      - php
+
+  php:
+    image: yiisoftware/yii2-php:7.0-fpm
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache
+      - ./:/app
+    ports:
+      - 9000:900
+    depends_on:
+      - db
+
+  db:
+    image: postgres:9.6.3-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: graph
+      POSTGRES_USER: graph
+      POSTGRES_PASSWORD: graph
+    volumes:
+      - graph_db:/var/lib/postgresql/data
+
+  pgweb:
+    image: donnex/pgweb
+    depends_on:
+      - db
+    ports:
+      - 8081:8080
+
+volumes:
+  system-tmp:
+    driver: local
+  graph_db:
+    driver: local
