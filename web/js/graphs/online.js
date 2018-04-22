@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let socket = io.connect('http://localhost:8803/');
+    let socket = io.connect('http://' + window.location.host + ':8803/');
 
     socket.on('graphClient', function(data) {
         if (data.type && (data.node || data.edge)) {
